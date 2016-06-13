@@ -1,0 +1,5 @@
+{{ object.username }}
+{{ object.password }}
+{{ object.gender   }}
+{{ object.is_player }}
+{{ object.is_match_maker }}
