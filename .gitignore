@@ -1,1 +1,6 @@
-download
+download/
+
+huiwan/*.pyc
+polls/*.pyc
+users/*.pyc
+authentication/*.pyc
