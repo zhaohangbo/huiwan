@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Help · Parsifal{% endblock %}
+
+{% block fullwidthheader %}
+  <div class="masthead">
+    <h1>Help</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+          <form action="{% url 'help:search' %}" method="get">
+            <div class="input-group">
+              <input type="text" name="q" class="form-control input-lg" placeholder="Search">
+              <span class="input-group-btn">
+                <button class="btn btn-default btn-lg" type="submit">
+                  <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      {% regroup articles by category as category_list %}
+      {% for category in category_list %}
+        <div class="panel panel-default" id="{{ category.grouper.slug }}">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{ category.grouper.name }}</h3>
+          </div>
+          <div class="list-group">
+            {% for article in category.list %}
+              <a href="{% url 'help:article' article.slug %}" class="list-group-item">{{ article.title }}</a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}   
+      <hr>
+      <p>If you didn't find what you were looking for, contact us <a href="mailto:support@parsif.al">support@parsif.al</a>.</p>
+    </div>
+  </div>
+{% endblock content %}

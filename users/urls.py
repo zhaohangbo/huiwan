@@ -12,6 +12,7 @@ urlpatterns = [
 ]
 """
 
+"""
 # Using Generic View
 app_name = 'polls' # to differentiate the URL names(like index, detail,results) between different  apps
 urlpatterns = [
@@ -21,3 +22,4 @@ urlpatterns = [
     url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
     url(r'^notes/$', views.notes, name='notes'),
 ]
+"""

@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from unipath import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -27,13 +27,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+PROJECT_DIR = Path(__file__).parent
+
+# STATIC_ROOT = PROJECT_DIR.parent.parent.child('static')
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+STATICFILES_DIRS =[
+        ]
 
 # Application definition
 
 INSTALLED_APPS = [
-    'polls.apps.PollsConfig',
-    'users', 
-    'authentication',
     # 'haystack', #provides modular search(ElasticSearch) for Django
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,6 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'polls.apps.PollsConfig',
+    'users', 
+    'authentication',
+    'core',
+    'blog',
+    'help',
 ]
 
 STATICFILES_FINDERS =[
@@ -75,7 +86,9 @@ ROOT_URLCONF = 'huiwan.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+                PROJECT_DIR.child('templates'),
+                ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,3 +152,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+MEDIA_URL = '/media/'

@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 
-from .models import Choice, Question
+from polls.models import Choice, Question
 
 from django.shortcuts import render_to_response
 from .forms import NotesSearchForm
@@ -52,6 +52,9 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+def aa(request, question_id):
+    vote(request, question_id)
 
 """
 def index(request):

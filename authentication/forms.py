@@ -51,3 +51,5 @@ class SignUpForm(forms.ModelForm):
         if password and password != confirm_password:
             self._errors['password'] = self.error_class(['Passwords don\'t match'])
         return self.cleaned_data
+
+#class SignInForm(forms.ModelForm):

@@ -5,24 +5,18 @@ from django.views import generic
 from .models import User, Role 
 
 from django.shortcuts import render_to_response, get_object_or_404, render
-
-from .forms import NotesSearchForm
+"""
 def notes(request):
     form = NotesSearchForm(request.GET)
     notes = form.search()
     return render_to_response('polls/notes.html', {'notes': notes})
-
-#class NoteDetailView(generic.DetailView):
-#    form = NotesSearchForm(request.GET)
-#    notes = form.search()
-#    return render_to_response('notes.html', {'notes': notes})
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
     def get_queryset(self):
-        """Return the last five published questions."""
+        #Return the last five published questions.
         return Question.objects.order_by('-pub_date')[:5]
 
 
@@ -52,3 +46,5 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+"""
+

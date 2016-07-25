@@ -6,8 +6,6 @@ try:
 except:
     import pickle
 
-from django.
-
 
 from oauthlib.oauth2 import TokenExpiredError
 from requests_oauthlib import OAuth2Session
@@ -17,8 +15,8 @@ from django.db.models.signals import post_save
 from django.db import models
 from django.conf import settings as django_settings
 
-from huiwan.activities.models import Activity
-from huiwan.reviews.models import Review
+# from huiwan.activities.models import Activity
+# from huiwan.reviews.models import Review
 
 
 class Profile(models.Model):
@@ -58,6 +56,16 @@ class Profile(models.Model):
         except:
             return self.user.username
 
+    def get_reviews(self):
+        user_reviews = []
+        author_reviews = Review.objects.filter(author=self.user)
+        co_author_reviews = Review.objects.filter(co_authors=self.user)
+        for r in author_reviews: user_reviews.append(r)
+        for r in co_author_reviews: user_reviews.append(r)
+        user_reviews.sort(key=lambda r: r.last_update, reverse=True)
+        return user_reviews
+
+    """
     def get_followers(self):
         activities = Activity.objects.filter(to_user__pk=self.pk, activity_type=Activity.FOLLOW)
         followers = []
@@ -79,15 +87,7 @@ class Profile(models.Model):
     def get_following_count(self):
         following_count = Activity.objects.filter(from_user__pk=self.pk, activity_type=Activity.FOLLOW).count()
         return following_count
-
-    def get_reviews(self):
-        user_reviews = []
-        author_reviews = Review.objects.filter(author=self.user)
-        co_author_reviews = Review.objects.filter(co_authors=self.user)
-        for r in author_reviews: user_reviews.append(r)
-        for r in co_author_reviews: user_reviews.append(r)
-        user_reviews.sort(key=lambda r: r.last_update, reverse=True)
-        return user_reviews
+    """
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
